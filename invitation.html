@@ -21,16 +21,63 @@
             font-family: 'Playfair Display', serif;
         }
         .hero-gradient {
-            background: linear-gradient(to bottom, 
-                rgba(0,0,0,0) 0%, 
-                rgba(0,0,0,0) 55%, 
-                rgba(0,0,0,0.15) 75%, 
-                rgba(252,251,248,0.85) 92%, 
-                rgba(252,251,248,1) 100%);
+            background: linear-gradient(135deg, 
+                #1a1a2e 0%, 
+                #16213e 25%, 
+                #0f3460 50%, 
+                #1a1a2e 75%,
+                #16213e 100%);
         }
         .hero-vignette {
-            box-shadow: inset 0 0 120px rgba(0,0,0,0.15);
+            box-shadow: inset 0 0 200px rgba(0,0,0,0.4);
         }
+        /* Particules dorées animées */
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #d4af37;
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-20px) scale(1); }
+        }
+        /* Ornements décoratifs */
+        .ornament-line {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+        .hero-ornament-top, .hero-ornament-bottom {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .hero-ornament-top { top: 30px; }
+        .hero-ornament-bottom { bottom: 30px; }
+        .corner-deco {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-color: rgba(212,175,55,0.3);
+        }
+        .corner-deco.tl { top: 15px; left: 15px; border-top: 1px solid; border-left: 1px solid; }
+        .corner-deco.tr { top: 15px; right: 15px; border-top: 1px solid; border-right: 1px solid; }
+        .corner-deco.bl { bottom: 15px; left: 15px; border-bottom: 1px solid; border-left: 1px solid; }
+        .corner-deco.br { bottom: 15px; right: 15px; border-bottom: 1px solid; border-right: 1px solid; }
         .fade-in {
             animation: fadeIn 2s ease-out;
         }
@@ -140,27 +187,45 @@
 <body>
 
     <!-- Header / Hero Section -->
-    <section class="hero-section relative min-h-screen flex flex-col items-center justify-start text-center overflow-visible">
-        <!-- Image de fond plein écran -->
-        <div class="absolute inset-0 z-0">
-            <img src="a%20et%20f.png" 
-                 alt="Ander et Falonne" 
-                 class="w-full h-full object-cover" style="object-position: 35% top;">
-            <div class="absolute inset-0 hero-gradient"></div>
-            <div class="absolute inset-0 hero-vignette"></div>
-        </div>
-    </section>
+    <section class="hero-section relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
+        <!-- Fond dégradé élégant -->
+        <div class="absolute inset-0 z-0 hero-gradient"></div>
+        <div class="absolute inset-0 z-0 hero-vignette"></div>
 
-    <!-- Cadre Noms - séparé sous la photo -->
-    <section class="relative -mt-28 sm:-mt-32 z-10 px-4 pb-8 sm:pb-14">
-        <div class="fade-in w-full max-w-md mx-auto">
-            <div class="bg-white/85 backdrop-blur-md rounded-xl px-6 py-8 sm:px-10 sm:py-10 shadow-xl border border-white/60 text-center">
-                <p class="uppercase tracking-[0.3em] text-[10px] sm:text-xs mb-3 text-[#d4af37]">Save the Date</p>
-                <h1 class="text-3xl sm:text-5xl md:text-6xl mb-1 leading-tight text-gray-800">Ander<br class="sm:hidden"> <span class="text-[#d4af37]">&</span> <br class="sm:hidden">Falonne</h1>
-                <div class="gold-divider"><span>♥</span></div>
-                <p class="serif text-lg sm:text-2xl md:text-3xl italic text-gray-700">Juin 2026</p>
-                <p class="mt-2 text-gray-400 uppercase tracking-widest text-[9px] sm:text-[10px]">Plus de détails à venir</p>
+        <!-- Coins décoratifs -->
+        <div class="corner-deco tl z-10"></div>
+        <div class="corner-deco tr z-10"></div>
+        <div class="corner-deco bl z-10"></div>
+        <div class="corner-deco br z-10"></div>
+
+        <!-- Particules dorées -->
+        <div class="particles z-[1]" id="particles"></div>
+
+        <!-- Ornement haut -->
+        <div class="hero-ornament-top z-10">
+            <div class="ornament-line"></div>
+            <span class="text-[#d4af37] text-xs">✦</span>
+            <div class="ornament-line"></div>
+        </div>
+
+        <!-- Contenu du hero -->
+        <div class="relative z-10 px-6 fade-in w-full max-w-lg mx-auto">
+            <p class="uppercase tracking-[0.4em] text-[10px] sm:text-xs mb-5 text-[#d4af37]">Save the Date</p>
+            <h1 class="text-5xl sm:text-6xl md:text-8xl mb-2 leading-tight text-white" style="font-family: 'Great Vibes', cursive;">Ander <span class="text-[#d4af37]">&</span> Falonne</h1>
+            <div class="flex items-center justify-center gap-4 my-6">
+                <div class="w-16 h-[1px] bg-gradient-to-r from-transparent to-[#d4af37]"></div>
+                <span class="text-[#d4af37] text-lg">♥</span>
+                <div class="w-16 h-[1px] bg-gradient-to-l from-transparent to-[#d4af37]"></div>
             </div>
+            <p class="serif text-xl sm:text-2xl md:text-3xl italic text-white/80">Juin 2026</p>
+            <p class="mt-4 text-white/40 uppercase tracking-[0.3em] text-[9px] sm:text-[10px]">Plus de détails à venir</p>
+        </div>
+
+        <!-- Ornement bas -->
+        <div class="hero-ornament-bottom z-10">
+            <div class="ornament-line"></div>
+            <span class="text-[#d4af37] text-xs">✦</span>
+            <div class="ornament-line"></div>
         </div>
     </section>
 
@@ -447,6 +512,23 @@
         document.getElementById('guestName').addEventListener('input', function() {
             this.style.borderColor = '';
         });
+
+        // Générer les particules dorées
+        (function() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            for (let i = 0; i < 40; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.width = (2 + Math.random() * 4) + 'px';
+                p.style.height = p.style.width;
+                p.style.animationDuration = (5 + Math.random() * 10) + 's';
+                p.style.animationDelay = (Math.random() * 10) + 's';
+                p.style.opacity = (0.2 + Math.random() * 0.5).toString();
+                container.appendChild(p);
+            }
+        })();
 
         window.addEventListener('scroll', () => {
             const elements = document.querySelectorAll('.fade-in');
