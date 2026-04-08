@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -575,133 +575,140 @@
             canvas.width = W; canvas.height = H;
             var ctx = canvas.getContext('2d');
 
-            // Fond beige doux
+            // Fond beige
             var bg = ctx.createLinearGradient(0, 0, W, H);
             bg.addColorStop(0, '#fdf8f0'); bg.addColorStop(0.5, '#f5efe3'); bg.addColorStop(1, '#fdf8f0');
             ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-            // Photo arrière-plan
+            // Photo arriere-plan couvrant tout le canvas
             if (photo) {
                 ctx.save();
-                ctx.globalAlpha = 0.18;
-                ctx.filter = 'blur(6px) saturate(0.5)';
-                var imgW = W, imgH = photo.height * (W / photo.width);
-                if (imgH < H) { imgH = H; imgW = photo.width * (H / photo.height); }
+                ctx.globalAlpha = 0.2;
+                ctx.filter = 'blur(5px) saturate(0.5)';
+                var ratio = Math.max(W / photo.width, H / photo.height);
+                var imgW = photo.width * ratio, imgH = photo.height * ratio;
                 ctx.drawImage(photo, (W - imgW)/2, (H - imgH)/2, imgW, imgH);
                 ctx.filter = 'none'; ctx.globalAlpha = 1.0; ctx.restore();
-                ctx.fillStyle = 'rgba(253,248,240,0.5)'; ctx.fillRect(0, 0, W, H);
+                ctx.fillStyle = 'rgba(253,248,240,0.45)'; ctx.fillRect(0, 0, W, H);
             }
 
             var gold = '#d4af37';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
 
-            // Cadre extérieur fin
-            ctx.strokeStyle = 'rgba(212,175,55,0.3)'; ctx.lineWidth = 1.5;
-            ctx.strokeRect(30, 30, W-60, H-60);
+            function goldLine(yy, w) {
+                var g = ctx.createLinearGradient(W/2 - w/2, 0, W/2 + w/2, 0);
+                g.addColorStop(0, 'rgba(212,175,55,0)'); g.addColorStop(0.5, gold); g.addColorStop(1, 'rgba(212,175,55,0)');
+                ctx.fillStyle = g; ctx.fillRect(W/2 - w/2, yy, w, 1.5);
+            }
 
-            // Coins dorés
-            ctx.strokeStyle = gold; ctx.lineWidth = 2;
-            var co = 80, ma = 30;
+            // === Cadre exterieur ===
+            ctx.strokeStyle = 'rgba(212,175,55,0.25)'; ctx.lineWidth = 1.5;
+            ctx.strokeRect(35, 35, W-70, H-70);
+
+            // === Coins dores ===
+            ctx.strokeStyle = gold; ctx.lineWidth = 2.5;
+            var co = 90, ma = 35;
             ctx.beginPath(); ctx.moveTo(ma, ma+co); ctx.lineTo(ma, ma); ctx.lineTo(ma+co, ma); ctx.stroke();
             ctx.beginPath(); ctx.moveTo(W-ma-co, ma); ctx.lineTo(W-ma, ma); ctx.lineTo(W-ma, ma+co); ctx.stroke();
             ctx.beginPath(); ctx.moveTo(ma, H-ma-co); ctx.lineTo(ma, H-ma); ctx.lineTo(ma+co, H-ma); ctx.stroke();
             ctx.beginPath(); ctx.moveTo(W-ma-co, H-ma); ctx.lineTo(W-ma, H-ma); ctx.lineTo(W-ma, H-ma-co); ctx.stroke();
 
-            ctx.textAlign = 'center';
-            var y = 110;
+            // === CONTENU CENTRE VERTICALEMENT ===
+            var y = 120;
 
-            // Déco étoiles
-            ctx.fillStyle = gold; ctx.font = '16px serif';
-            ctx.fillText('\u2726     \u2726     \u2726', W/2, y); y += 35;
+            // Etoiles deco
+            ctx.fillStyle = gold; ctx.font = '20px serif';
+            ctx.fillText('\u2726   \u2726   \u2726', W/2, y); y += 55;
 
             // Titre
-            ctx.fillStyle = gold; ctx.font = '400 20px Lato, Helvetica, Arial, sans-serif';
-                        ctx.fillText('I N V I T A T I O N   A U   M A R I A G E', W/2, y); y += 40;
+            ctx.fillStyle = gold; ctx.font = '24px Lato, sans-serif';
+            ctx.fillText('INVITATION AU MARIAGE', W/2, y); y += 50;
 
-            // Ligne
-            function goldLine(yy, w) {
-                var g = ctx.createLinearGradient(W/2 - w/2, 0, W/2 + w/2, 0);
-                g.addColorStop(0, 'transparent'); g.addColorStop(0.5, gold); g.addColorStop(1, 'transparent');
-                ctx.fillStyle = g; ctx.fillRect(W/2 - w/2, yy, w, 1.5);
-            }
-            goldLine(y, 140); y += 65;
+            goldLine(y, 160); y += 80;
 
-            // Noms sur UNE ligne
-            ctx.fillStyle = '#2d2d2d'; ctx.font = '88px Great Vibes, cursive';
-            var nameText = 'Falonne & Ander';
-            // Mesurer pour centrer
-            var fullW = ctx.measureText(nameText).width;
-            var startX = W/2 - fullW/2;
-            // Dessiner "Falonne " en noir
-            ctx.fillStyle = '#2d2d2d'; ctx.textAlign = 'left';
-            ctx.fillText('Falonne ', startX, y);
-            var fW = ctx.measureText('Falonne ').width;
-            // Dessiner "&" en or
-            ctx.fillStyle = gold;
-            ctx.fillText('&', startX + fW, y);
-            var aW = ctx.measureText('& ').width;
-            // Dessiner "Ander" en noir
+            // === NOMS - approche simple: tout dessiner centre puis superposer le & en or ===
+            ctx.font = '100px Great Vibes, cursive';
+            // D'abord dessiner tout en noir
             ctx.fillStyle = '#2d2d2d';
-            ctx.fillText(' Ander', startX + fW + aW - 15, y);
+            ctx.fillText('Falonne & Ander', W/2, y);
+            // Maintenant superposer le "&" en or par dessus
+            // Mesurer "Falonne " pour savoir ou est le &
+            var beforeAmp = ctx.measureText('Falonne ').width;
+            var fullText = ctx.measureText('Falonne & Ander').width;
+            var ampX = W/2 - fullText/2 + beforeAmp;
+            var ampW = ctx.measureText('& ').width;
+            // Effacer la zone du & et redesssiner en or
+            ctx.fillStyle = '#f5efe3'; ctx.globalAlpha = 0.85;
+            ctx.fillRect(ampX - 5, y - 55, ampW + 5, 80);
+            ctx.globalAlpha = 1.0;
+            ctx.fillStyle = gold;
+            ctx.textAlign = 'left';
+            ctx.fillText('&', ampX, y);
             ctx.textAlign = 'center';
-            y += 50;
+            y += 65;
 
             // Sous-titre
-            ctx.fillStyle = '#999'; ctx.font = '16px Lato, Helvetica, Arial, sans-serif';
-            ctx.fillText("O N T   L ' H O N N E U R   D E   V O U S   I N V I T E R", W/2, y); y += 60;
+            ctx.fillStyle = '#999'; ctx.font = '18px Lato, sans-serif';
+            ctx.fillText("ONT L'HONNEUR DE VOUS INVITER", W/2, y); y += 80;
 
-            // --- Invitation pour ---
-            goldLine(y, 100);
-            ctx.fillStyle = gold; ctx.font = '13px Lato, Helvetica, Arial, sans-serif';
-            ctx.fillText('Invitation pour', W/2, y - 10); y += 50;
+            // === INVITATION POUR ===
+            goldLine(y - 15, 120);
+            ctx.fillStyle = gold; ctx.font = '15px Lato, sans-serif';
+            ctx.fillText('INVITATION POUR', W/2, y + 5); y += 55;
 
-            // Nom invité
-            ctx.fillStyle = '#2d2d2d'; ctx.font = '62px Great Vibes, cursive';
-            ctx.fillText(guestName, W/2, y); y += 25;
-            goldLine(y, 80); y += 65;
+            // Nom invite
+            ctx.fillStyle = '#2d2d2d'; ctx.font = '72px Great Vibes, cursive';
+            ctx.fillText(guestName, W/2, y); y += 40;
+            goldLine(y, 90); y += 80;
 
-            // --- Célébration ---
-            ctx.fillStyle = '#999'; ctx.font = '14px Lato, Helvetica, Arial, sans-serif';
-            ctx.fillText('C \u00c9 L \u00c9 B R A T I O N', W/2, y); y += 30;
-            ctx.fillStyle = '#6a6055'; ctx.font = '16px Lato, Helvetica, Arial, sans-serif';
-            ctx.fillText('Vendredi', W/2, y); y += 60;
-            ctx.fillStyle = gold; ctx.font = 'bold 80px Playfair Display, Georgia, serif';
-            ctx.fillText('26', W/2, y); y += 30;
-            ctx.fillStyle = '#2d2d2d'; ctx.font = '26px Playfair Display, Georgia, serif';
-            ctx.fillText('Juin 2026', W/2, y); y += 65;
+            // === CELEBRATION ===
+            ctx.fillStyle = '#aaa'; ctx.font = '16px Lato, sans-serif';
+            ctx.fillText('C\u00c9L\u00c9BRATION', W/2, y); y += 40;
+            ctx.fillStyle = '#6a6055'; ctx.font = '20px Lato, sans-serif';
+            ctx.fillText('Vendredi', W/2, y); y += 70;
 
-            // --- Programme (style élégant, pas de cadre) ---
+            // Grand 26
+            ctx.fillStyle = gold; ctx.font = 'bold 110px Playfair Display, serif';
+            ctx.fillText('26', W/2, y); y += 55;
+
+            // Juin 2026
+            ctx.fillStyle = '#2d2d2d'; ctx.font = '32px Playfair Display, serif';
+            ctx.fillText('Juin 2026', W/2, y); y += 85;
+
+            // === PROGRAMME ===
             // Event 1
-            ctx.fillStyle = gold; ctx.font = '28px Playfair Display, Georgia, serif';
-            ctx.fillText('09h30', W/2, y); y += 32;
-            ctx.fillStyle = '#2d2d2d'; ctx.font = '28px Great Vibes, cursive';
-            ctx.fillText('Mariage Civil', W/2, y); y += 25;
-            ctx.fillStyle = '#8a8070'; ctx.font = '15px Lato, Helvetica, Arial, sans-serif';
-            ctx.fillText('Mairie Centrale', W/2, y); y += 25;
+            ctx.fillStyle = gold; ctx.font = '34px Playfair Display, serif';
+            ctx.fillText('09h30', W/2, y); y += 42;
+            ctx.fillStyle = '#2d2d2d'; ctx.font = '34px Great Vibes, cursive';
+            ctx.fillText('Mariage Civil', W/2, y); y += 32;
+            ctx.fillStyle = '#8a8070'; ctx.font = '17px Lato, sans-serif';
+            ctx.fillText('Mairie Centrale', W/2, y); y += 35;
 
-            goldLine(y, 50); y += 30;
+            goldLine(y, 60); y += 40;
 
             // Event 2
-            ctx.fillStyle = gold; ctx.font = '28px Playfair Display, Georgia, serif';
-            ctx.fillText('12h30', W/2, y); y += 32;
-            ctx.fillStyle = '#2d2d2d'; ctx.font = '28px Great Vibes, cursive';
-            ctx.fillText('B\u00e9n\u00e9diction Nuptiale', W/2, y); y += 25;
-            ctx.fillStyle = '#8a8070'; ctx.font = '15px Lato, Helvetica, Arial, sans-serif';
-            ctx.fillText('Exoming Beach', W/2, y); y += 55;
+            ctx.fillStyle = gold; ctx.font = '34px Playfair Display, serif';
+            ctx.fillText('12h30', W/2, y); y += 42;
+            ctx.fillStyle = '#2d2d2d'; ctx.font = '34px Great Vibes, cursive';
+            ctx.fillText('B\u00e9n\u00e9diction Nuptiale', W/2, y); y += 32;
+            ctx.fillStyle = '#8a8070'; ctx.font = '17px Lato, sans-serif';
+            ctx.fillText('Exoming Beach', W/2, y); y += 60;
 
-            // Cœur
-            goldLine(y, 100);
-            ctx.fillStyle = gold; ctx.font = '18px serif';
-            ctx.fillText('\u2665', W/2, y - 8); y += 40;
+            // Coeur
+            goldLine(y, 120);
+            ctx.fillStyle = gold; ctx.font = '22px serif';
+            ctx.fillText('\u2665', W/2, y - 9); y += 55;
 
             // Citation
-            ctx.fillStyle = '#777'; ctx.font = 'italic 22px Playfair Display, Georgia, serif';
-            ctx.fillText('\u201CVotre pr\u00e9sence est le plus beau cadeau', W/2, y); y += 34;
-            ctx.fillText('que vous puissiez nous offrir.\u201D', W/2, y); y += 55;
+            ctx.fillStyle = '#777'; ctx.font = 'italic 24px Playfair Display, serif';
+            ctx.fillText('\u201CVotre pr\u00e9sence est le plus beau cadeau', W/2, y); y += 40;
+            ctx.fillText('que vous puissiez nous offrir.\u201D', W/2, y); y += 70;
 
             // Footer
-            goldLine(y, 100); y += 18;
-            ctx.fillStyle = 'rgba(212,175,55,0.5)'; ctx.font = '13px Lato, Helvetica, Arial, sans-serif';
-            ctx.fillText('F   &   A   \u2022   2 0 2 6', W/2, y);
+            goldLine(y, 120); y += 25;
+            ctx.fillStyle = 'rgba(212,175,55,0.5)'; ctx.font = '15px Lato, sans-serif';
+            ctx.fillText('F  &  A  \u2022  2 0 2 6', W/2, y);
 canvas.toBlob(function(blob) {
                 var url = URL.createObjectURL(blob);
                 var link = document.createElement('a');
