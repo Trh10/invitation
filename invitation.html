@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitation de Mariage - Falonne & Ander</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * {
@@ -580,225 +581,37 @@
         }
 
         function downloadInvitation() {
-            const guestName = document.getElementById('cardGuestName').textContent;
             const btn = document.querySelector('button[onclick="downloadInvitation()"]');
             btn.innerHTML = '⏳ Génération en cours...';
             btn.disabled = true;
-
-            const bgImg = new Image();
-            bgImg.onload = function() {
-                document.fonts.ready.then(function() { drawAndDownload(bgImg, guestName); btn.innerHTML = '⬇ Télécharger mon invitation'; btn.disabled = false; });
-            };
-            bgImg.onerror = function() {
-                document.fonts.ready.then(function() { drawAndDownload(null, guestName); btn.innerHTML = '⬇ Télécharger mon invitation'; btn.disabled = false; });
-            };
-            bgImg.src = 'arreire%20plan%20invit.png';
-        }
-
-        function drawAndDownload(photo, guestName) {
-            var W = 1200, H = 1700;
-            var canvas = document.createElement('canvas');
-            canvas.width = W; canvas.height = H;
-            var ctx = canvas.getContext('2d');
-            var gold = '#d4af37';
-
-            // SVG ornaments inline
-            var svgs = {};
-            var loaded = 0;
-            var total = 3;
-
-            var ornTopSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 100"><g fill="none" stroke="%23d4af37" stroke-width="4" stroke-linecap="round"><path d="M300,50 C260,50 240,10 200,10 C170,10 155,30 168,50 C180,68 200,55 200,50"/><path d="M300,50 C340,50 360,10 400,10 C430,10 445,30 432,50 C420,68 400,55 400,50"/><path d="M300,50 C260,50 240,90 200,90 C170,90 155,70 168,50"/><path d="M300,50 C340,50 360,90 400,90 C430,90 445,70 432,50"/><path d="M200,50 C175,30 150,45 120,40 C95,36 75,25 40,35"/><path d="M400,50 C425,30 450,45 480,40 C505,36 525,25 560,35"/><path d="M200,50 C175,70 150,55 120,60 C95,64 75,75 40,65"/><path d="M400,50 C425,70 450,55 480,60 C505,64 525,75 560,65"/></g><circle cx="300" cy="50" r="10" fill="%23d4af37"/><circle cx="35" cy="50" r="5" fill="%23d4af37"/><circle cx="565" cy="50" r="5" fill="%23d4af37"/></svg>';
-
-            var ornSepSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 40"><g fill="%23d4af37"><rect x="30" y="18" width="130" height="3" rx="1.5" opacity="0.8"/><rect x="240" y="18" width="130" height="3" rx="1.5" opacity="0.8"/><polygon points="200,3 214,20 200,37 186,20"/><polygon points="25,12 35,20 25,28 15,20"/><polygon points="375,12 385,20 375,28 365,20"/><circle cx="55" cy="20" r="4"/><circle cx="345" cy="20" r="4"/></g></svg>';
-
-            var ornCorSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><g fill="none" stroke="%23d4af37" stroke-width="4"><path d="M5,145 L5,5 L145,5"/><path d="M22,120 L22,22 L120,22"/></g><g fill="%23d4af37"><polygon points="5,0 18,18 0,18"/><polygon points="145,0 150,10 140,10"/><polygon points="0,145 10,140 10,150"/><circle cx="38" cy="38" r="5"/><circle cx="55" cy="12" r="3"/><circle cx="12" cy="55" r="3"/></g><path d="M55,5 Q55,35 30,55" fill="none" stroke="%23d4af37" stroke-width="3" opacity="0.7"/><path d="M5,55 Q35,55 55,30" fill="none" stroke="%23d4af37" stroke-width="3" opacity="0.7"/></svg>';
-
-            function loadSvg(svgStr, key, w, h) {
-                var img = new Image();
-                img.onload = function() { svgs[key] = {img: img, w: w, h: h}; loaded++; if(loaded >= total) doDraw(); };
-                img.onerror = function() { svgs[key] = null; loaded++; if(loaded >= total) doDraw(); };
-                img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
-            }
-            loadSvg(ornTopSvg, 'top', 600, 100);
-            loadSvg(ornSepSvg, 'sep', 400, 40);
-            loadSvg(ornCorSvg, 'cor', 150, 150);
-
-            function drawSvgC(key, cy, scale) {
-                var s = svgs[key]; if(!s) return;
-                var w = s.w * (scale||1), h = s.h * (scale||1);
-                ctx.drawImage(s.img, W/2 - w/2, cy - h/2, w, h);
-            }
-            function drawSep(cy) { drawSvgC('sep', cy, 1); }
-
-            function doDraw() {
-                // Fond
-                var bg = ctx.createLinearGradient(0, 0, W, H);
-                bg.addColorStop(0, '#fdf8f0'); bg.addColorStop(0.3, '#f8f0de');
-                bg.addColorStop(0.5, '#fdf8f0'); bg.addColorStop(0.7, '#f5eddd');
-                bg.addColorStop(1, '#fdf8f0');
-                ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
-
-                // Motif losanges fond
-                ctx.save(); ctx.globalAlpha = 0.05; ctx.strokeStyle = gold; ctx.lineWidth = 1;
-                for (var dx = 0; dx < W; dx += 80) {
-                    for (var dy = 0; dy < H; dy += 80) {
-                        ctx.beginPath();
-                        ctx.moveTo(dx+40, dy); ctx.lineTo(dx+80, dy+40);
-                        ctx.lineTo(dx+40, dy+80); ctx.lineTo(dx, dy+40);
-                        ctx.closePath(); ctx.stroke();
-                    }
-                }
-                ctx.restore();
-
-                // Photo
-                if (photo) {
-                    ctx.save(); ctx.globalAlpha = 0.22;
-                    ctx.filter = 'blur(4px) saturate(0.5)';
-                    var ratio = Math.max(W/photo.width, H/photo.height);
-                    var iW = photo.width*ratio, iH = photo.height*ratio;
-                    ctx.drawImage(photo, (W-iW)/2, (H-iH)/2, iW, iH);
-                    ctx.filter = 'none'; ctx.globalAlpha = 1; ctx.restore();
-                    ctx.fillStyle = 'rgba(253,248,240,0.4)'; ctx.fillRect(0, 0, W, H);
-                }
-
-                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-
-                // Triple cadre
-                ctx.strokeStyle = gold; ctx.lineWidth = 4;
-                ctx.strokeRect(30, 30, W-60, H-60);
-                ctx.strokeStyle = 'rgba(212,175,55,0.35)'; ctx.lineWidth = 1.5;
-                ctx.strokeRect(18, 18, W-36, H-36);
-                ctx.strokeRect(48, 48, W-96, H-96);
-
-                // 4 coins SVG (150px)
-                var cs = 150;
-                var co = svgs['cor'];
-                if (co) {
-                    ctx.drawImage(co.img, 25, 25, cs, cs);
-                    ctx.save(); ctx.translate(W-25, 25); ctx.scale(-1,1);
-                    ctx.drawImage(co.img, 0, 0, cs, cs); ctx.restore();
-                    ctx.save(); ctx.translate(25, H-25); ctx.scale(1,-1);
-                    ctx.drawImage(co.img, 0, 0, cs, cs); ctx.restore();
-                    ctx.save(); ctx.translate(W-25, H-25); ctx.scale(-1,-1);
-                    ctx.drawImage(co.img, 0, 0, cs, cs); ctx.restore();
-                }
-
-                var y = 115;
-
-                // Ornement scroll haut (GRAND)
-                drawSvgC('top', y, 1.2); y += 85;
-
-                // TITRE
-                ctx.fillStyle = gold; ctx.font = '600 34px Lato, sans-serif';
-                ctx.fillText('INVITATION AU MARIAGE', W/2, y); y += 55;
-
-                drawSep(y); y += 60;
-
-                // === NOMS SUR UNE LIGNE ===
-                ctx.fillStyle = '#2d2d2d'; ctx.font = '110px Great Vibes, cursive';
-                var testW = ctx.measureText('Falonne & Ander').width;
-                // Si trop large, reduire
-                var nameSize = 110;
-                while (testW > W - 160 && nameSize > 60) {
-                    nameSize -= 5;
-                    ctx.font = nameSize + 'px Great Vibes, cursive';
-                    testW = ctx.measureText('Falonne & Ander').width;
-                }
-                ctx.fillText('Falonne & Ander', W/2, y);
-                // Superposer le & en or
-                var full = ctx.measureText('Falonne & Ander').width;
-                var before = ctx.measureText('Falonne ').width;
-                var ampW = ctx.measureText('&').width;
-                var ampX = W/2 - full/2 + before;
-                // Rectangle beige sur le &
-                ctx.fillStyle = 'rgba(245,237,221,0.8)';
-                ctx.fillRect(ampX - 4, y - nameSize*0.4, ampW + 8, nameSize*0.65);
-                // Redessiner & en or
-                ctx.fillStyle = gold; ctx.textAlign = 'left';
-                ctx.fillText('&', ampX, y);
-                ctx.textAlign = 'center';
-                y += 55;
-
-                ctx.fillStyle = '#888'; ctx.font = '22px Lato, sans-serif';
-                ctx.fillText("ONT L'HONNEUR DE VOUS INVITER", W/2, y); y += 60;
-
-                // Ornement milieu
-                drawSvgC('top', y, 1.0); y += 70;
-
-                // INVITATION POUR
-                ctx.fillStyle = gold; ctx.font = '20px Lato, sans-serif';
-                ctx.fillText('\u2726  INVITATION POUR  \u2726', W/2, y); y += 60;
-
-                ctx.fillStyle = '#2d2d2d'; ctx.font = '90px Great Vibes, cursive';
-                ctx.fillText(guestName, W/2, y); y += 50;
-
-                drawSep(y); y += 55;
-
-                // CELEBRATION
-                ctx.fillStyle = '#aaa'; ctx.font = '20px Lato, sans-serif';
-                ctx.fillText('C\u00c9L\u00c9BRATION', W/2, y); y += 35;
-                ctx.fillStyle = '#6a6055'; ctx.font = '24px Lato, sans-serif';
-                ctx.fillText('Vendredi', W/2, y); y += 60;
-
-                // 26 avec ombre
-                ctx.fillStyle = 'rgba(212,175,55,0.12)'; ctx.font = 'bold 140px Playfair Display, serif';
-                ctx.fillText('26', W/2+4, y+4);
-                ctx.fillStyle = gold; ctx.fillText('26', W/2, y); y += 50;
-                ctx.fillStyle = '#2d2d2d'; ctx.font = '38px Playfair Display, serif';
-                ctx.fillText('Juin 2026', W/2, y); y += 60;
-
-                // PROGRAMME
-                drawSep(y); y += 40;
-                ctx.fillStyle = gold; ctx.font = '18px Lato, sans-serif';
-                ctx.fillText('\u2726  PROGRAMME  \u2726', W/2, y); y += 48;
-
-                ctx.fillStyle = gold; ctx.font = 'bold 42px Playfair Display, serif';
-                ctx.fillText('09h30', W/2, y); y += 46;
-                ctx.fillStyle = '#2d2d2d'; ctx.font = '44px Great Vibes, cursive';
-                ctx.fillText('Mariage Civil', W/2, y); y += 36;
-                ctx.fillStyle = '#8a8070'; ctx.font = '20px Lato, sans-serif';
-                ctx.fillText('Mairie Centrale', W/2, y); y += 32;
-
-                ctx.fillStyle = gold; ctx.font = '22px serif';
-                ctx.fillText('\u25c6', W/2, y); y += 32;
-
-                ctx.fillStyle = gold; ctx.font = 'bold 42px Playfair Display, serif';
-                ctx.fillText('12h30', W/2, y); y += 46;
-                ctx.fillStyle = '#2d2d2d'; ctx.font = '44px Great Vibes, cursive';
-                ctx.fillText('B\u00e9n\u00e9diction Nuptiale', W/2, y); y += 36;
-                ctx.fillStyle = '#8a8070'; ctx.font = '20px Lato, sans-serif';
-                ctx.fillText('Exoming Beach', W/2, y); y += 42;
-
-                drawSep(y); y += 48;
-
-                // Coeur
-                ctx.fillStyle = gold; ctx.font = '32px serif';
-                ctx.fillText('\u2665', W/2, y); y += 48;
-
-                // Citation
-                ctx.fillStyle = '#666'; ctx.font = 'italic 28px Playfair Display, serif';
-                ctx.fillText('\u201CVotre pr\u00e9sence est le plus beau cadeau', W/2, y); y += 44;
-                ctx.fillText('que vous puissiez nous offrir.\u201D', W/2, y); y += 60;
-
-                // Ornement bas
-                drawSvgC('top', y, 1.0); y += 50;
-
-                ctx.fillStyle = 'rgba(212,175,55,0.5)'; ctx.font = '18px Lato, sans-serif';
-                ctx.fillText('F  &  A  \u2022  2 0 2 6', W/2, y);
-
-                // EXPORT
+            
+            const card = document.getElementById('invitationCard');
+            html2canvas(card, {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null,
+                width: card.offsetWidth,
+                height: card.offsetHeight
+            }).then(function(canvas) {
                 canvas.toBlob(function(blob) {
-                var url = URL.createObjectURL(blob);
-                var link = document.createElement('a');
-                link.download = 'Invitation-Mariage-Falonne-Ander.png';
-                link.href = url;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
-            }, 'image/png');
-            } // end doDraw
-        } // end drawAndDownload
+                    var url = URL.createObjectURL(blob);
+                    var link = document.createElement('a');
+                    link.download = 'Invitation-Mariage-Falonne-Ander.png';
+                    link.href = url;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+                    btn.innerHTML = '⬇ Télécharger mon invitation';
+                    btn.disabled = false;
+                }, 'image/png');
+            }).catch(function(err) {
+                console.error('Erreur:', err);
+                btn.innerHTML = '⬇ Télécharger mon invitation';
+                btn.disabled = false;
+            });
+        }
 
         document.getElementById('guestName').addEventListener('input', function() {
             this.style.borderColor = '';
