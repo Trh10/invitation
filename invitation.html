@@ -797,7 +797,8 @@
                 document.body.removeChild(link);
                 setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
             }, 'image/png');
-        }
+            } // end doDraw
+        } // end drawAndDownload
 
         document.getElementById('guestName').addEventListener('input', function() {
             this.style.borderColor = '';
