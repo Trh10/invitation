@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -154,32 +154,41 @@
         .modal-overlay.active {
             display: flex;
         }
-        /* Invitation card for download */
+        /* Invitation card */
         .invitation-card {
             width: 100%;
             max-width: 600px;
             min-height: auto;
-            background: linear-gradient(135deg, #fdf8f0 0%, #f5efe3 50%, #fdf8f0 100%);
+            background: linear-gradient(135deg, #fdf8f0 0%, #f8f0de 25%, #fdf8f0 50%, #f5eddd 75%, #fdf8f0 100%);
             position: relative;
             overflow: hidden;
             font-family: 'Playfair Display', serif;
-            border: 1px solid rgba(212,175,55,0.3);
+            border: 3px solid #d4af37;
         }
         .invitation-card::before {
             content: '';
             position: absolute;
-            inset: 8px;
-            border: 1px solid rgba(212,175,55,0.25);
+            inset: 6px;
+            border: 1px solid rgba(212,175,55,0.3);
             pointer-events: none;
             z-index: 1;
         }
         .invitation-card::after {
             content: '';
             position: absolute;
-            inset: 16px;
-            border: 1px solid rgba(212,175,55,0.12);
+            inset: 14px;
+            border: 1px solid rgba(212,175,55,0.15);
             pointer-events: none;
             z-index: 1;
+        }
+        /* Motif losanges subtil en fond */
+        .card-pattern {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpolygon points='30,2 58,30 30,58 2,30' fill='none' stroke='%23d4af37' stroke-width='1'/%3E%3C/svg%3E");
+            background-size: 60px 60px;
         }
         .card-bg-photo {
             position: absolute;
@@ -191,30 +200,42 @@
             opacity: 0.22;
             filter: blur(4px) saturate(0.5);
         }
+        /* Coins ornementaux SVG */
         .invitation-card .corner-ornament {
             position: absolute;
-            width: 100px;
-            height: 100px;
-            z-index: 2;
+            width: 90px;
+            height: 90px;
+            z-index: 4;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='2.5'%3E%3Cpath d='M3,97 L3,3 L97,3'/%3E%3Cpath d='M15,80 L15,15 L80,15'/%3E%3C/g%3E%3Cpolygon points='3,3 12,12 3,21' fill='%23d4af37'/%3E%3Ccircle cx='28' cy='28' r='2.5' fill='%23d4af37'/%3E%3Cpath d='M38,3 Q38,25 20,38' fill='none' stroke='%23d4af37' stroke-width='1.5' opacity='0.6'/%3E%3Cpath d='M3,38 Q25,38 38,20' fill='none' stroke='%23d4af37' stroke-width='1.5' opacity='0.6'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
         }
-        .invitation-card .corner-ornament::before,
-        .invitation-card .corner-ornament::after {
-            content: '';
-            position: absolute;
-            background: #d4af37;
+        .invitation-card .corner-tl { top: 10px; left: 10px; }
+        .invitation-card .corner-tr { top: 10px; right: 10px; transform: scaleX(-1); }
+        .invitation-card .corner-bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
+        .invitation-card .corner-br { bottom: 10px; right: 10px; transform: scale(-1,-1); }
+        /* Ornement scroll SVG */
+        .card-scroll-ornament {
+            width: 80%;
+            max-width: 280px;
+            height: 40px;
+            margin: 0 auto;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 80'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M200,40 C170,40 150,15 120,15 C95,15 85,30 95,40 C105,50 120,40 120,40'/%3E%3Cpath d='M200,40 C230,40 250,15 280,15 C305,15 315,30 305,40 C295,50 280,40 280,40'/%3E%3Cpath d='M200,40 C170,40 150,65 120,65 C95,65 85,50 95,40'/%3E%3Cpath d='M200,40 C230,40 250,65 280,65 C305,65 315,50 305,40'/%3E%3Cpath d='M120,40 C100,25 80,40 60,35 C45,32 35,25 20,30'/%3E%3Cpath d='M280,40 C300,25 320,40 340,35 C355,32 365,25 380,30'/%3E%3Cpath d='M120,40 C100,55 80,40 60,45 C45,48 35,55 20,50'/%3E%3Cpath d='M280,40 C300,55 320,40 340,45 C355,48 365,55 380,50'/%3E%3C/g%3E%3Ccircle cx='200' cy='40' r='6' fill='%23d4af37'/%3E%3Ccircle cx='20' cy='40' r='3' fill='%23d4af37'/%3E%3Ccircle cx='380' cy='40' r='3' fill='%23d4af37'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
-        .invitation-card .corner-tl { top: 22px; left: 22px; }
-        .invitation-card .corner-tl::before { top: 0; left: 0; width: 60px; height: 1.5px; }
-        .invitation-card .corner-tl::after { top: 0; left: 0; width: 1.5px; height: 60px; }
-        .invitation-card .corner-tr { top: 22px; right: 22px; }
-        .invitation-card .corner-tr::before { top: 0; right: 0; width: 60px; height: 1.5px; }
-        .invitation-card .corner-tr::after { top: 0; right: 0; width: 1.5px; height: 60px; }
-        .invitation-card .corner-bl { bottom: 22px; left: 22px; }
-        .invitation-card .corner-bl::before { bottom: 0; left: 0; width: 60px; height: 1.5px; }
-        .invitation-card .corner-bl::after { bottom: 0; left: 0; width: 1.5px; height: 60px; }
-        .invitation-card .corner-br { bottom: 22px; right: 22px; }
-        .invitation-card .corner-br::before { bottom: 0; right: 0; width: 60px; height: 1.5px; }
-        .invitation-card .corner-br::after { bottom: 0; right: 0; width: 1.5px; height: 60px; }
+        /* Séparateur SVG losanges */
+        .card-sep-ornament {
+            width: 70%;
+            max-width: 220px;
+            height: 20px;
+            margin: 8px auto;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 30'%3E%3Cg fill='%23d4af37'%3E%3Crect x='30' y='14' width='90' height='2' rx='1' opacity='0.7'/%3E%3Crect x='180' y='14' width='90' height='2' rx='1' opacity='0.7'/%3E%3Cpolygon points='150,4 158,15 150,26 142,15'/%3E%3Cpolygon points='25,11 31,15 25,19 19,15'/%3E%3Cpolygon points='275,11 281,15 275,19 269,15'/%3E%3Ccircle cx='45' cy='15' r='2'/%3E%3Ccircle cx='255' cy='15' r='2'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
         .card-shimmer {
             position: absolute;
             inset: 0;
@@ -233,17 +254,18 @@
         .card-event .ce-time {
             font-family: 'Playfair Display', serif;
             font-size: 22px;
+            font-weight: bold;
             color: #d4af37;
             margin-bottom: 2px;
         }
         .card-event .ce-name {
             font-family: 'Great Vibes', cursive;
-            font-size: 22px;
+            font-size: 24px;
             color: #2d2d2d;
         }
         .card-event .ce-venue {
             font-family: 'Lato', sans-serif;
-            font-size: 11px;
+            font-size: 12px;
             color: #8a8070;
             letter-spacing: 0.1em;
         }
@@ -435,77 +457,81 @@
 
             <!-- Carte d'invitation -->
             <div id="invitationCard" class="invitation-card rounded-sm shadow-2xl mx-auto">
-                <!-- Coins décoratifs -->
+                <!-- Coins décoratifs SVG -->
                 <div class="corner-ornament corner-tl"></div>
                 <div class="corner-ornament corner-tr"></div>
                 <div class="corner-ornament corner-bl"></div>
                 <div class="corner-ornament corner-br"></div>
+                <div class="card-pattern"></div>
                 <div class="card-bg-photo"></div>
                 <div class="card-shimmer"></div>
 
                 <!-- Contenu -->
                 <div class="card-inner" style="padding: 40px 20px; text-align: center; position: relative; z-index: 3;">
-                    <!-- En-tête -->
-                    <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: #d4af37; margin-bottom: 8px;">✦ &nbsp; ✦ &nbsp; ✦</p>
-                    <p style="font-family: 'Lato', sans-serif; font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4af37; margin-bottom: 20px;">Invitation au Mariage</p>
                     
-                    <!-- Ligne déco -->
-                    <div class="card-gold-line" style="margin-bottom: 30px;"></div>
+                    <!-- Ornement scroll haut -->
+                    <div class="card-scroll-ornament" style="margin-bottom: 18px;"></div>
 
-                    <!-- Noms des mariés -->
-                    <p class="text-[36px] sm:text-[52px]" style="font-family: 'Great Vibes', cursive; color: #2d2d2d; margin-bottom: 3px;">Falonne <span style="color: #d4af37;">&</span> Ander</p>
+                    <!-- Titre -->
+                    <p style="font-family: 'Lato', sans-serif; font-size: 13px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4af37; margin-bottom: 18px; font-weight: 600;">Invitation au Mariage</p>
                     
-                    <p style="font-family: 'Lato', sans-serif; font-size: 11px; color: #888; letter-spacing: 0.25em; margin-bottom: 25px;">ONT L'HONNEUR DE VOUS INVITER</p>
+                    <!-- Séparateur -->
+                    <div class="card-sep-ornament" style="margin-bottom: 22px;"></div>
+
+                    <!-- Noms des mariés - une seule ligne -->
+                    <p class="text-[38px] sm:text-[52px]" style="font-family: 'Great Vibes', cursive; color: #2d2d2d; margin-bottom: 8px; line-height: 1.1; white-space: nowrap;">Falonne <span style="color: #d4af37;">&</span> Ander</p>
+                    
+                    <p style="font-family: 'Lato', sans-serif; font-size: 11px; color: #888; letter-spacing: 0.25em; margin-bottom: 18px;">ONT L'HONNEUR DE VOUS INVITER</p>
+
+                    <!-- Ornement milieu -->
+                    <div class="card-scroll-ornament" style="margin-bottom: 14px;"></div>
 
                     <!-- Nom de l'invité -->
-                    <div style="padding: 20px 0; margin: 0 20px 25px;">
-                        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 12px;">
-                            <div style="width: 40px; height: 1px; background: linear-gradient(90deg, transparent, #d4af37);"></div>
-                            <span style="font-family: 'Lato', sans-serif; font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4af37;">Invitation pour</span>
-                            <div style="width: 40px; height: 1px; background: linear-gradient(90deg, #d4af37, transparent);"></div>
-                        </div>
-                        <p id="cardGuestName" class="text-[28px] sm:text-[38px]" style="font-family: 'Great Vibes', cursive; color: #2d2d2d;"></p>
-                        <div style="width: 60px; height: 1px; background: linear-gradient(90deg, transparent, rgba(212,175,55,0.5), transparent); margin: 10px auto 0;"></div>
+                    <div style="padding: 12px 0; margin: 0 10px 18px;">
+                        <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4af37; margin-bottom: 10px;">✦ &nbsp; Invitation pour &nbsp; ✦</p>
+                        <p id="cardGuestName" class="text-[30px] sm:text-[40px]" style="font-family: 'Great Vibes', cursive; color: #2d2d2d;"></p>
+                        <div class="card-sep-ornament" style="margin-top: 10px;"></div>
                     </div>
 
                     <!-- Date principale -->
-                    <div style="margin-bottom: 20px;">
-                        <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #888; margin-bottom: 8px;">Célébration</p>
-                        <p style="font-family: 'Lato', sans-serif; font-size: 11px; letter-spacing: 0.15em; color: #6a6055; margin-bottom: 2px;">Vendredi</p>
-                        <p class="text-[40px] sm:text-[52px]" style="font-family: 'Playfair Display', serif; color: #d4af37; margin-bottom: 0; line-height: 1;">26</p>
-                        <p style="font-family: 'Playfair Display', serif; font-size: 20px; color: #2d2d2d; letter-spacing: 0.15em; margin-bottom: 0;">Juin 2026</p>
+                    <div style="margin-bottom: 18px;">
+                        <p style="font-family: 'Lato', sans-serif; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #aaa; margin-bottom: 6px;">Célébration</p>
+                        <p style="font-family: 'Lato', sans-serif; font-size: 13px; letter-spacing: 0.15em; color: #6a6055; margin-bottom: 4px;">Vendredi</p>
+                        <p class="text-[48px] sm:text-[60px]" style="font-family: 'Playfair Display', serif; font-weight: bold; color: #d4af37; margin-bottom: 0; line-height: 1; text-shadow: 3px 3px 0 rgba(212,175,55,0.1);">26</p>
+                        <p style="font-family: 'Playfair Display', serif; font-size: 22px; color: #2d2d2d; letter-spacing: 0.15em; margin-bottom: 0;">Juin 2026</p>
                     </div>
 
-                    <!-- Programme -->
-                    <div style="margin-bottom: 22px;">
+                    <!-- Programme avec séparateurs -->
+                    <div style="margin-bottom: 18px;">
+                        <div class="card-sep-ornament" style="margin-bottom: 12px;"></div>
+                        <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4af37; margin-bottom: 14px;">✦ &nbsp; Programme &nbsp; ✦</p>
                         <div class="card-event">
                             <p class="ce-time">09h30</p>
                             <p class="ce-name">Mariage Civil</p>
                             <p class="ce-venue">Mairie Centrale</p>
                         </div>
-                        <div class="card-event-divider"></div>
+                        <p style="color: #d4af37; font-size: 14px; margin: 6px 0;">◆</p>
                         <div class="card-event">
                             <p class="ce-time">12h30</p>
                             <p class="ce-name">Bénédiction Nuptiale</p>
                             <p class="ce-venue">Exoming Beach</p>
                         </div>
+                        <div class="card-sep-ornament" style="margin-top: 12px;"></div>
                     </div>
 
-                    <!-- Ligne déco -->
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px;">
-                        <div style="width: 50px; height: 1px; background: linear-gradient(90deg, transparent, #d4af37);"></div>
-                        <span style="color: #d4af37; font-size: 14px;">♥</span>
-                        <div style="width: 50px; height: 1px; background: linear-gradient(90deg, #d4af37, transparent);"></div>
-                    </div>
+                    <!-- Coeur -->
+                    <p style="color: #d4af37; font-size: 20px; margin-bottom: 14px;">♥</p>
 
                     <!-- Message -->
-                    <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: #666; line-height: 1.8; max-width: 360px; margin: 0 auto 25px;">
+                    <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: #666; line-height: 1.8; max-width: 360px; margin: 0 auto 20px;">
                         "Votre présence est le plus beau cadeau que vous puissiez nous offrir."
                     </p>
 
+                    <!-- Ornement scroll bas -->
+                    <div class="card-scroll-ornament" style="margin-bottom: 14px;"></div>
+
                     <!-- Footer carte -->
-                    <div class="card-gold-line" style="margin-bottom: 15px;"></div>
-                    <p style="font-family: 'Lato', sans-serif; font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase; color: rgba(212,175,55,0.6);">F & A • 2026</p>
+                    <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: rgba(212,175,55,0.6);">F & A • 2026</p>
                 </div>
             </div>
 
@@ -576,12 +602,44 @@
             var ctx = canvas.getContext('2d');
             var gold = '#d4af37';
 
-            // Fond beige
+            // --- SVG ORNAMENTS AS DATA URLS ---
+            var ornTop = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80"><g fill="none" stroke="%23d4af37" stroke-width="2.5" stroke-linecap="round"><path d="M200,40 C170,40 150,15 120,15 C95,15 85,30 95,40 C105,50 120,40 120,40"/><path d="M200,40 C230,40 250,15 280,15 C305,15 315,30 305,40 C295,50 280,40 280,40"/><path d="M200,40 C170,40 150,65 120,65 C95,65 85,50 95,40"/><path d="M200,40 C230,40 250,65 280,65 C305,65 315,50 305,40"/><path d="M120,40 C100,25 80,40 60,35 C45,32 35,25 20,30"/><path d="M280,40 C300,25 320,40 340,35 C355,32 365,25 380,30"/><path d="M120,40 C100,55 80,40 60,45 C45,48 35,55 20,50"/><path d="M280,40 C300,55 320,40 340,45 C355,48 365,55 380,50"/></g><circle cx="200" cy="40" r="6" fill="%23d4af37"/><circle cx="20" cy="40" r="3" fill="%23d4af37"/><circle cx="380" cy="40" r="3" fill="%23d4af37"/></svg>';
+
+            var ornSep = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 30"><g fill="%23d4af37"><rect x="30" y="14" width="90" height="2" rx="1" opacity="0.7"/><rect x="180" y="14" width="90" height="2" rx="1" opacity="0.7"/><polygon points="150,4 158,15 150,26 142,15"/><polygon points="25,11 31,15 25,19 19,15"/><polygon points="275,11 281,15 275,19 269,15"/><circle cx="45" cy="15" r="2"/><circle cx="255" cy="15" r="2"/></g></svg>';
+
+            var ornCorner = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><g fill="none" stroke="%23d4af37" stroke-width="2.5"><path d="M5,145 L5,5 L145,5"/><path d="M20,125 L20,20 L125,20"/></g><g fill="%23d4af37"><polygon points="5,5 15,15 5,25 -5,15" transform="translate(5,0)"/><circle cx="40" cy="40" r="3"/><path d="M50,5 Q50,30 30,50" fill="none" stroke="%23d4af37" stroke-width="2" opacity="0.6"/><path d="M5,50 Q30,50 50,30" fill="none" stroke="%23d4af37" stroke-width="2" opacity="0.6"/></g></svg>';
+
+            function loadSVG(svgStr, w, h) {
+                var img = new Image();
+                img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
+                img._w = w; img._h = h;
+                return img;
+            }
+
+            var svgOrnTop = loadSVG(ornTop, 500, 100);
+            var svgSep = loadSVG(ornSep, 350, 35);
+            var svgCorner = loadSVG(ornCorner, 130, 130);
+
+            // Wait a tick for SVGs to decode then draw
+            setTimeout(function() { actualDraw(ctx, W, H, gold, photo, guestName, svgOrnTop, svgSep, svgCorner, canvas); }, 100);
+        }
+
+        function actualDraw(ctx, W, H, gold, photo, guestName, svgOrnTop, svgSep, svgCorner, canvas) {
+
+            // Fond beige riche texturé
             var bg = ctx.createLinearGradient(0, 0, W, H);
-            bg.addColorStop(0, '#fdf8f0'); bg.addColorStop(0.3, '#f8f1e0');
-            bg.addColorStop(0.5, '#fdf8f0'); bg.addColorStop(0.7, '#f5ede0');
+            bg.addColorStop(0, '#fdf8f0'); bg.addColorStop(0.25, '#f8f0de');
+            bg.addColorStop(0.5, '#fdf8f0'); bg.addColorStop(0.75, '#f5eddd');
             bg.addColorStop(1, '#fdf8f0');
             ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+            // Texture subtile - petits points dorés aléatoires
+            ctx.save(); ctx.globalAlpha = 0.04; ctx.fillStyle = gold;
+            for (var i = 0; i < 300; i++) {
+                var px = Math.random()*W, py = Math.random()*H;
+                ctx.beginPath(); ctx.arc(px, py, 1.5, 0, Math.PI*2); ctx.fill();
+            }
+            ctx.restore();
 
             // Photo arriere-plan
             if (photo) {
@@ -589,253 +647,121 @@
                 ctx.filter = 'blur(4px) saturate(0.5)';
                 var ratio = Math.max(W / photo.width, H / photo.height);
                 var iW = photo.width * ratio, iH = photo.height * ratio;
-                ctx.drawImage(photo, (W - iW)/2, (H - iH)/2, iW, iH);
+                ctx.drawImage(photo, (W-iW)/2, (H-iH)/2, iW, iH);
                 ctx.filter = 'none'; ctx.globalAlpha = 1; ctx.restore();
                 ctx.fillStyle = 'rgba(253,248,240,0.4)'; ctx.fillRect(0, 0, W, H);
             }
 
             ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
 
-            // ============================================================
-            //  MOTIFS DE FOND - damier subtil de losanges dores
-            // ============================================================
-            ctx.save(); ctx.globalAlpha = 0.06;
-            ctx.strokeStyle = gold; ctx.lineWidth = 1;
-            for (var dx = 0; dx < W; dx += 80) {
-                for (var dy = 0; dy < H; dy += 80) {
-                    ctx.beginPath();
-                    ctx.moveTo(dx + 40, dy); ctx.lineTo(dx + 80, dy + 40);
-                    ctx.lineTo(dx + 40, dy + 80); ctx.lineTo(dx, dy + 40);
-                    ctx.closePath(); ctx.stroke();
-                }
-            }
-            ctx.restore();
-
-            // ============================================================
-            //  TRIPLE CADRE
-            // ============================================================
+            // === CADRES ===
             ctx.strokeStyle = gold; ctx.lineWidth = 3;
-            ctx.strokeRect(30, 30, W-60, H-60);
-            ctx.strokeStyle = 'rgba(212,175,55,0.4)'; ctx.lineWidth = 1;
-            ctx.strokeRect(20, 20, W-40, H-40);
-            ctx.strokeRect(45, 45, W-90, H-90);
+            ctx.strokeRect(35, 35, W-70, H-70);
+            ctx.strokeStyle = 'rgba(212,175,55,0.3)'; ctx.lineWidth = 1;
+            ctx.strokeRect(25, 25, W-50, H-50);
+            ctx.strokeRect(50, 50, W-100, H-100);
 
-            // ============================================================
-            //  GROS COINS ORNEMENTAUX
-            // ============================================================
-            function bigCorner(ox, oy, sx, sy) {
-                ctx.save();
-                ctx.strokeStyle = gold; ctx.fillStyle = gold;
-                // L epais
-                ctx.lineWidth = 4;
-                ctx.beginPath();
-                ctx.moveTo(ox, oy + sy*130); ctx.lineTo(ox, oy); ctx.lineTo(ox + sx*130, oy);
-                ctx.stroke();
-                // L interieur
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(ox + sx*18, oy + sy*110);
-                ctx.lineTo(ox + sx*18, oy + sy*18);
-                ctx.lineTo(ox + sx*110, oy + sy*18);
-                ctx.stroke();
-                // GROS losange au coin (20px)
-                ctx.beginPath();
-                ctx.moveTo(ox + sx*12, oy); ctx.lineTo(ox, oy + sy*12);
-                ctx.lineTo(ox + sx*12, oy + sy*24); ctx.lineTo(ox + sx*24, oy + sy*12);
-                ctx.closePath(); ctx.fill();
-                // Petit losange bout L horizontal
-                ctx.beginPath();
-                ctx.moveTo(ox + sx*130, oy + sy*9 - 6); ctx.lineTo(ox + sx*130 + sx*6, oy + sy*9);
-                ctx.lineTo(ox + sx*130, oy + sy*9 + 6); ctx.lineTo(ox + sx*130 - sx*6, oy + sy*9);
-                ctx.closePath(); ctx.fill();
-                // Petit losange bout L vertical
-                ctx.beginPath();
-                ctx.moveTo(ox + sx*9, oy + sy*130 - sy*6); ctx.lineTo(ox + sx*9 + sx*6, oy + sy*130);
-                ctx.lineTo(ox + sx*9, oy + sy*130 + sy*6); ctx.lineTo(ox + sx*9 - sx*6, oy + sy*130);
-                ctx.closePath(); ctx.fill();
-                // Volute / scroll decoratif
-                ctx.lineWidth = 3;
-                ctx.beginPath();
-                ctx.moveTo(ox + sx*50, oy);
-                ctx.bezierCurveTo(ox + sx*50, oy + sy*35, ox + sx*30, oy + sy*45, ox + sx*60, oy + sy*50);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(ox, oy + sy*50);
-                ctx.bezierCurveTo(ox + sx*35, oy + sy*50, ox + sx*45, oy + sy*30, ox + sx*50, oy + sy*60);
-                ctx.stroke();
-                ctx.restore();
-            }
-            bigCorner(30, 30, 1, 1);
-            bigCorner(W-30, 30, -1, 1);
-            bigCorner(30, H-30, 1, -1);
-            bigCorner(W-30, H-30, -1, -1);
+            // === 4 COINS SVG ===
+            var cs = 130;
+            ctx.drawImage(svgCorner, 30, 30, cs, cs);
+            ctx.save(); ctx.translate(W-30, 30); ctx.scale(-1,1);
+            ctx.drawImage(svgCorner, 0, 0, cs, cs); ctx.restore();
+            ctx.save(); ctx.translate(30, H-30); ctx.scale(1,-1);
+            ctx.drawImage(svgCorner, 0, 0, cs, cs); ctx.restore();
+            ctx.save(); ctx.translate(W-30, H-30); ctx.scale(-1,-1);
+            ctx.drawImage(svgCorner, 0, 0, cs, cs); ctx.restore();
 
-            // ============================================================
-            //  GRAND ORNEMENT SCROLL HORIZONTAL (separateur floral)
-            // ============================================================
-            function bigScroll(cy, size) {
-                ctx.save(); ctx.strokeStyle = gold; ctx.lineWidth = 3.5;
-                // Spirale gauche
-                ctx.beginPath();
-                ctx.moveTo(W/2 - size, cy);
-                ctx.bezierCurveTo(W/2 - size, cy - 35, W/2 - size + 40, cy - 50, W/2 - size + 60, cy - 30);
-                ctx.bezierCurveTo(W/2 - size + 75, cy - 15, W/2 - size + 55, cy + 5, W/2 - size + 40, cy);
-                ctx.stroke();
-                // Spirale droite (miroir)
-                ctx.beginPath();
-                ctx.moveTo(W/2 + size, cy);
-                ctx.bezierCurveTo(W/2 + size, cy - 35, W/2 + size - 40, cy - 50, W/2 + size - 60, cy - 30);
-                ctx.bezierCurveTo(W/2 + size - 75, cy - 15, W/2 + size - 55, cy + 5, W/2 + size - 40, cy);
-                ctx.stroke();
-                // Courbe principale gauche
-                ctx.lineWidth = 3;
-                ctx.beginPath();
-                ctx.moveTo(W/2 - size + 40, cy);
-                ctx.bezierCurveTo(W/2 - size + 80, cy + 25, W/2 - 40, cy + 30, W/2, cy);
-                ctx.stroke();
-                // Courbe principale droite
-                ctx.beginPath();
-                ctx.moveTo(W/2 + size - 40, cy);
-                ctx.bezierCurveTo(W/2 + size - 80, cy + 25, W/2 + 40, cy + 30, W/2, cy);
-                ctx.stroke();
-                // Courbe basse gauche
-                ctx.beginPath();
-                ctx.moveTo(W/2 - size + 40, cy);
-                ctx.bezierCurveTo(W/2 - size + 80, cy - 25, W/2 - 40, cy - 30, W/2, cy);
-                ctx.stroke();
-                // Courbe basse droite
-                ctx.beginPath();
-                ctx.moveTo(W/2 + size - 40, cy);
-                ctx.bezierCurveTo(W/2 + size - 80, cy - 25, W/2 + 40, cy - 30, W/2, cy);
-                ctx.stroke();
-                // Centre losange gros
-                ctx.fillStyle = gold;
-                ctx.beginPath();
-                ctx.moveTo(W/2, cy - 12); ctx.lineTo(W/2 + 12, cy);
-                ctx.lineTo(W/2, cy + 12); ctx.lineTo(W/2 - 12, cy);
-                ctx.closePath(); ctx.fill();
-                // Petits cercles aux extremites
-                ctx.beginPath(); ctx.arc(W/2 - size, cy, 5, 0, Math.PI*2); ctx.fill();
-                ctx.beginPath(); ctx.arc(W/2 + size, cy, 5, 0, Math.PI*2); ctx.fill();
-                ctx.restore();
-            }
+            // Helper: dessiner ornement SVG centré
+            function drawOrnC(svg, cy) { ctx.drawImage(svg, W/2 - svg._w/2, cy - svg._h/2, svg._w, svg._h); }
+            function drawSep(cy) { drawOrnC(svgSep, cy); }
 
-            // ============================================================
-            //  ORNEMENT HORIZONTAL SIMPLE AVEC LIGNES ET LOSANGES
-            // ============================================================
-            function ornLine(cy, w) {
-                ctx.save();
-                // Ligne gradient
-                var g = ctx.createLinearGradient(W/2-w/2, 0, W/2+w/2, 0);
-                g.addColorStop(0, 'rgba(212,175,55,0)'); g.addColorStop(0.15, gold);
-                g.addColorStop(0.5, gold); g.addColorStop(0.85, gold);
-                g.addColorStop(1, 'rgba(212,175,55,0)');
-                ctx.fillStyle = g; ctx.fillRect(W/2-w/2, cy-1, w, 2);
-                // Losanges aux bouts
-                ctx.fillStyle = gold;
-                [-1,1].forEach(function(s) {
-                    ctx.beginPath();
-                    var bx = W/2 + s*(w/2 + 8);
-                    ctx.moveTo(bx, cy-5); ctx.lineTo(bx+5*s, cy);
-                    ctx.lineTo(bx, cy+5); ctx.lineTo(bx-5*s, cy);
-                    ctx.closePath(); ctx.fill();
-                });
-                ctx.restore();
-            }
+            var y = 110;
 
-            // ============================================================
-            //  CONTENU
-            // ============================================================
-            var y = 100;
+            // === ORNEMENT SCROLL HAUT ===
+            drawOrnC(svgOrnTop, y); y += 75;
 
-            // Ornement scroll haut
-            bigScroll(y, 180);
-            y += 65;
+            // TITRE
+            ctx.fillStyle = gold; ctx.font = '600 32px Lato, sans-serif';
+            ctx.fillText('INVITATION AU MARIAGE', W/2, y); y += 60;
 
-            // Titre
-            ctx.fillStyle = gold; ctx.font = '600 30px Lato, sans-serif';
-            ctx.fillText('INVITATION AU MARIAGE', W/2, y); y += 50;
+            drawSep(y); y += 60;
 
-            ornLine(y, 300); y += 65;
+            // NOMS GRANDS
+            ctx.font = '130px Great Vibes, cursive'; ctx.fillStyle = '#2d2d2d';
+            ctx.fillText('Falonne', W/2, y); y += 35;
+            ctx.fillStyle = gold; ctx.font = '90px Great Vibes, cursive';
+            ctx.fillText('&', W/2, y); y += 55;
+            ctx.fillStyle = '#2d2d2d'; ctx.font = '130px Great Vibes, cursive';
+            ctx.fillText('Ander', W/2, y); y += 65;
 
-            // NOMS
-            ctx.font = '120px Great Vibes, cursive'; ctx.fillStyle = '#2d2d2d';
-            ctx.fillText('Falonne', W/2, y); y += 30;
-            ctx.fillStyle = gold; ctx.font = '85px Great Vibes, cursive';
-            ctx.fillText('&', W/2, y); y += 50;
-            ctx.fillStyle = '#2d2d2d'; ctx.font = '120px Great Vibes, cursive';
-            ctx.fillText('Ander', W/2, y); y += 55;
+            ctx.fillStyle = '#888'; ctx.font = '22px Lato, sans-serif';
+            ctx.fillText("ONT L'HONNEUR DE VOUS INVITER", W/2, y); y += 60;
 
-            ctx.fillStyle = '#999'; ctx.font = '20px Lato, sans-serif';
-            ctx.fillText("ONT L'HONNEUR DE VOUS INVITER", W/2, y); y += 55;
-
-            // Scroll separateur milieu
-            bigScroll(y, 160);
-            y += 55;
+            // ORNEMENT MILIEU
+            drawOrnC(svgOrnTop, y); y += 65;
 
             // INVITATION POUR
-            ctx.fillStyle = gold; ctx.font = '18px Lato, sans-serif';
-            ctx.fillText('\u2726  INVITATION POUR  \u2726', W/2, y); y += 55;
+            ctx.fillStyle = gold; ctx.font = '20px Lato, sans-serif';
+            ctx.fillText('\u2726  INVITATION POUR  \u2726', W/2, y); y += 60;
 
-            ctx.fillStyle = '#2d2d2d'; ctx.font = '85px Great Vibes, cursive';
-            ctx.fillText(guestName, W/2, y); y += 45;
+            ctx.fillStyle = '#2d2d2d'; ctx.font = '90px Great Vibes, cursive';
+            ctx.fillText(guestName, W/2, y); y += 50;
 
-            ornLine(y, 140); y += 55;
+            drawSep(y); y += 55;
 
-            // CELEBRATION
-            ctx.fillStyle = '#aaa'; ctx.font = '18px Lato, sans-serif';
-            ctx.fillText('C\u00c9L\u00c9BRATION', W/2, y); y += 32;
-            ctx.fillStyle = '#6a6055'; ctx.font = '22px Lato, sans-serif';
-            ctx.fillText('Vendredi', W/2, y); y += 55;
+            // DATE
+            ctx.fillStyle = '#aaa'; ctx.font = '20px Lato, sans-serif';
+            ctx.fillText('C\u00c9L\u00c9BRATION', W/2, y); y += 35;
+            ctx.fillStyle = '#6a6055'; ctx.font = '24px Lato, sans-serif';
+            ctx.fillText('Vendredi', W/2, y); y += 60;
 
-            // 26 avec ombre
             ctx.fillStyle = 'rgba(212,175,55,0.12)'; ctx.font = 'bold 140px Playfair Display, serif';
             ctx.fillText('26', W/2+4, y+4);
             ctx.fillStyle = gold; ctx.fillText('26', W/2, y); y += 50;
-            ctx.fillStyle = '#2d2d2d'; ctx.font = '36px Playfair Display, serif';
-            ctx.fillText('Juin 2026', W/2, y); y += 60;
+            ctx.fillStyle = '#2d2d2d'; ctx.font = '38px Playfair Display, serif';
+            ctx.fillText('Juin 2026', W/2, y); y += 65;
 
             // PROGRAMME
-            ornLine(y, 400); y += 35;
-            ctx.fillStyle = gold; ctx.font = '16px Lato, sans-serif';
-            ctx.fillText('\u2726  PROGRAMME DE LA JOURN\u00c9E  \u2726', W/2, y); y += 45;
+            drawSep(y); y += 40;
+            ctx.fillStyle = gold; ctx.font = '18px Lato, sans-serif';
+            ctx.fillText('\u2726  PROGRAMME  \u2726', W/2, y); y += 48;
 
-            ctx.fillStyle = gold; ctx.font = 'bold 38px Playfair Display, serif';
-            ctx.fillText('09h30', W/2, y); y += 42;
-            ctx.fillStyle = '#2d2d2d'; ctx.font = '40px Great Vibes, cursive';
-            ctx.fillText('Mariage Civil', W/2, y); y += 32;
-            ctx.fillStyle = '#8a8070'; ctx.font = '19px Lato, sans-serif';
-            ctx.fillText('Mairie Centrale', W/2, y); y += 30;
+            ctx.fillStyle = gold; ctx.font = 'bold 40px Playfair Display, serif';
+            ctx.fillText('09h30', W/2, y); y += 44;
+            ctx.fillStyle = '#2d2d2d'; ctx.font = '42px Great Vibes, cursive';
+            ctx.fillText('Mariage Civil', W/2, y); y += 34;
+            ctx.fillStyle = '#8a8070'; ctx.font = '20px Lato, sans-serif';
+            ctx.fillText('Mairie Centrale', W/2, y); y += 32;
 
-            ctx.fillStyle = gold; ctx.font = '20px serif';
-            ctx.fillText('\u2022', W/2, y); y += 30;
+            ctx.fillStyle = gold; ctx.font = '22px serif';
+            ctx.fillText('\u2666', W/2, y); y += 32;
 
-            ctx.fillStyle = gold; ctx.font = 'bold 38px Playfair Display, serif';
-            ctx.fillText('12h30', W/2, y); y += 42;
-            ctx.fillStyle = '#2d2d2d'; ctx.font = '40px Great Vibes, cursive';
-            ctx.fillText('B\u00e9n\u00e9diction Nuptiale', W/2, y); y += 32;
-            ctx.fillStyle = '#8a8070'; ctx.font = '19px Lato, sans-serif';
-            ctx.fillText('Exoming Beach', W/2, y); y += 40;
+            ctx.fillStyle = gold; ctx.font = 'bold 40px Playfair Display, serif';
+            ctx.fillText('12h30', W/2, y); y += 44;
+            ctx.fillStyle = '#2d2d2d'; ctx.font = '42px Great Vibes, cursive';
+            ctx.fillText('B\u00e9n\u00e9diction Nuptiale', W/2, y); y += 34;
+            ctx.fillStyle = '#8a8070'; ctx.font = '20px Lato, sans-serif';
+            ctx.fillText('Exoming Beach', W/2, y); y += 45;
 
-            ornLine(y, 400); y += 50;
+            drawSep(y); y += 50;
 
             // Coeur
-            ctx.fillStyle = gold; ctx.font = '30px serif';
+            ctx.fillStyle = gold; ctx.font = '32px serif';
             ctx.fillText('\u2665', W/2, y); y += 50;
 
             // Citation
-            ctx.fillStyle = '#666'; ctx.font = 'italic 26px Playfair Display, serif';
-            ctx.fillText('\u201CVotre pr\u00e9sence est le plus beau cadeau', W/2, y); y += 42;
-            ctx.fillText('que vous puissiez nous offrir.\u201D', W/2, y); y += 55;
+            ctx.fillStyle = '#666'; ctx.font = 'italic 28px Playfair Display, serif';
+            ctx.fillText('\u201CVotre pr\u00e9sence est le plus beau cadeau', W/2, y); y += 44;
+            ctx.fillText('que vous puissiez nous offrir.\u201D', W/2, y); y += 60;
 
-            // Scroll bas
-            bigScroll(y, 150);
-            y += 45;
+            // ORNEMENT BAS
+            drawOrnC(svgOrnTop, y); y += 50;
 
-            // Footer
-            ctx.fillStyle = 'rgba(212,175,55,0.5)'; ctx.font = '17px Lato, sans-serif';
+            ctx.fillStyle = 'rgba(212,175,55,0.5)'; ctx.font = '18px Lato, sans-serif';
             ctx.fillText('F  &  A  \u2022  2 0 2 6', W/2, y);
-canvas.toBlob(function(blob) {
+
+            // --- EXPORT ---
+            canvas.toBlob(function(blob) {
                 var url = URL.createObjectURL(blob);
                 var link = document.createElement('a');
                 link.download = 'Invitation-Mariage-Falonne-Ander.png';
