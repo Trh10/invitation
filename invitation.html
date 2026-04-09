@@ -192,6 +192,12 @@
             font-family: 'Playfair Display', serif;
             border: 3px solid #d4af37;
         }
+        /* RESET des marges Tailwind dans la carte */
+        .invitation-card p,
+        .invitation-card div {
+            margin: 0;
+            padding: 0;
+        }
         .invitation-card::before {
             content: '';
             position: absolute;
@@ -314,7 +320,11 @@
         /* Card responsive padding */
         @media (min-width: 640px) {
             .invitation-card .card-inner {
-                padding: 36px 32px 30px !important;
+                padding: 40px 36px 32px !important;
+                gap: 16px !important;
+            }
+            .invitation-card .card-inner p[style*="font-size: 38px"] {
+                font-size: 46px !important;
             }
         }
     </style>
@@ -494,63 +504,68 @@
                 <div class="card-shimmer"></div>
 
                 <!-- Contenu -->
-                <div class="card-inner" style="padding: 30px 20px 24px; text-align: center; position: relative; z-index: 3;">
+                <div class="card-inner" style="padding: 32px 24px 26px; text-align: center; position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 14px;">
                     
                     <!-- Ornement scroll haut -->
-                    <div class="card-scroll-ornament" style="margin-bottom: 14px;"></div>
+                    <div class="card-scroll-ornament"></div>
 
-                    <!-- Titre -->
-                    <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.45em; text-transform: uppercase; color: #d4af37; margin: 0 0 12px; font-weight: 600;">Invitation au Mariage</p>
-                    
-                    <!-- Noms des mariés -->
-                    <p class="text-[36px] sm:text-[46px]" style="font-family: 'Great Vibes', cursive; color: #2d2d2d; margin: 0; line-height: 1.15; white-space: nowrap;">Falonne <span style="color: #d4af37;">&amp;</span> Ander</p>
-                    <p style="font-family: 'Lato', sans-serif; font-size: 8px; color: #999; letter-spacing: 0.3em; margin: 4px 0 0;">ONT L'HONNEUR DE VOUS INVITER</p>
-
-                    <!-- Séparateur -->
-                    <div class="card-sep-ornament" style="margin: 14px auto;"></div>
-
-                    <!-- Nom de l'invité -->
-                    <p style="font-family: 'Lato', sans-serif; font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4af37; margin: 0 0 4px;">✦ Invitation pour ✦</p>
-                    <p id="cardGuestName" class="text-[26px] sm:text-[32px]" style="font-family: 'Great Vibes', cursive; color: #2d2d2d; margin: 0;"></p>
+                    <!-- Bloc titre + noms -->
+                    <div style="text-align: center;">
+                        <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.45em; text-transform: uppercase; color: #d4af37; font-weight: 600;">Invitation au Mariage</p>
+                        <div class="card-sep-ornament" style="margin: 10px auto;"></div>
+                        <p style="font-family: 'Great Vibes', cursive; font-size: 38px; color: #2d2d2d; line-height: 1.15; white-space: nowrap;">Falonne <span style="color: #d4af37;">&amp;</span> Ander</p>
+                        <p style="font-family: 'Lato', sans-serif; font-size: 8px; color: #999; letter-spacing: 0.3em; margin-top: 4px;">ONT L'HONNEUR DE VOUS INVITER</p>
+                    </div>
 
                     <!-- Séparateur -->
-                    <div class="card-sep-ornament" style="margin: 14px auto;"></div>
+                    <div class="card-sep-ornament"></div>
 
-                    <!-- Date -->
-                    <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: #8a8070; margin: 0 0 2px; text-transform: uppercase;">Vendredi</p>
-                    <p class="text-[42px] sm:text-[50px]" style="font-family: 'Playfair Display', serif; font-weight: bold; color: #d4af37; margin: 0; line-height: 1;">26</p>
-                    <p style="font-family: 'Playfair Display', serif; font-size: 18px; color: #2d2d2d; letter-spacing: 0.12em; margin: 2px 0 0;">Juin 2026</p>
+                    <!-- Bloc invité -->
+                    <div style="text-align: center;">
+                        <p style="font-family: 'Lato', sans-serif; font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4af37;">✦ Invitation pour ✦</p>
+                        <p id="cardGuestName" style="font-family: 'Great Vibes', cursive; font-size: 28px; color: #2d2d2d; margin-top: 4px;"></p>
+                    </div>
 
                     <!-- Séparateur -->
-                    <div class="card-sep-ornament" style="margin: 14px auto;"></div>
+                    <div class="card-sep-ornament"></div>
 
-                    <!-- Programme - 2 colonnes bien espacées -->
-                    <div style="display: flex; justify-content: center; gap: 36px;">
+                    <!-- Bloc date -->
+                    <div style="text-align: center;">
+                        <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: #8a8070; text-transform: uppercase;">Vendredi</p>
+                        <p style="font-family: 'Playfair Display', serif; font-weight: bold; font-size: 44px; color: #d4af37; line-height: 1;">26</p>
+                        <p style="font-family: 'Playfair Display', serif; font-size: 18px; color: #2d2d2d; letter-spacing: 0.12em; margin-top: 2px;">Juin 2026</p>
+                    </div>
+
+                    <!-- Séparateur -->
+                    <div class="card-sep-ornament"></div>
+
+                    <!-- Bloc programme - 2 colonnes -->
+                    <div style="display: flex; justify-content: center; gap: 40px; width: 100%;">
                         <div style="text-align: center;">
-                            <p style="font-family: 'Playfair Display', serif; font-size: 17px; font-weight: bold; color: #d4af37; margin: 0;">09h30</p>
-                            <p style="font-family: 'Great Vibes', cursive; font-size: 19px; color: #2d2d2d; margin: 2px 0 1px;">Mariage Civil</p>
-                            <p style="font-family: 'Lato', sans-serif; font-size: 9px; color: #8a8070; margin: 0; letter-spacing: 0.05em;">Mairie Centrale</p>
+                            <p style="font-family: 'Playfair Display', serif; font-size: 17px; font-weight: bold; color: #d4af37;">09h30</p>
+                            <p style="font-family: 'Great Vibes', cursive; font-size: 19px; color: #2d2d2d; margin-top: 2px;">Mariage Civil</p>
+                            <p style="font-family: 'Lato', sans-serif; font-size: 9px; color: #8a8070; letter-spacing: 0.05em; margin-top: 2px;">Mairie Centrale</p>
                         </div>
                         <div style="text-align: center;">
-                            <p style="font-family: 'Playfair Display', serif; font-size: 17px; font-weight: bold; color: #d4af37; margin: 0;">12h30</p>
-                            <p style="font-family: 'Great Vibes', cursive; font-size: 19px; color: #2d2d2d; margin: 2px 0 1px;">Bénédiction Nuptiale</p>
-                            <p style="font-family: 'Lato', sans-serif; font-size: 9px; color: #8a8070; margin: 0; letter-spacing: 0.05em;">Exoming Beach</p>
+                            <p style="font-family: 'Playfair Display', serif; font-size: 17px; font-weight: bold; color: #d4af37;">12h30</p>
+                            <p style="font-family: 'Great Vibes', cursive; font-size: 19px; color: #2d2d2d; margin-top: 2px;">Bénédiction Nuptiale</p>
+                            <p style="font-family: 'Lato', sans-serif; font-size: 9px; color: #8a8070; letter-spacing: 0.05em; margin-top: 2px;">Exoming Beach</p>
                         </div>
                     </div>
 
                     <!-- Séparateur -->
-                    <div class="card-sep-ornament" style="margin: 14px auto;"></div>
+                    <div class="card-sep-ornament"></div>
 
                     <!-- Citation -->
-                    <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 11px; color: #777; line-height: 1.6; max-width: 300px; margin: 0 auto;">
+                    <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 11px; color: #777; line-height: 1.6; max-width: 300px;">
                         "Votre présence est le plus beau cadeau<br>que vous puissiez nous offrir."
                     </p>
 
                     <!-- Ornement scroll bas -->
-                    <div class="card-scroll-ornament" style="margin-top: 14px; margin-bottom: 6px;"></div>
+                    <div class="card-scroll-ornament"></div>
 
                     <!-- Footer carte -->
-                    <p style="font-family: 'Lato', sans-serif; font-size: 8px; letter-spacing: 0.5em; text-transform: uppercase; color: rgba(212,175,55,0.5); margin: 0;">F &amp; A • 2026</p>
+                    <p style="font-family: 'Lato', sans-serif; font-size: 8px; letter-spacing: 0.5em; text-transform: uppercase; color: rgba(212,175,55,0.5);">F &amp; A • 2026</p>
                 </div>
             </div>
 
