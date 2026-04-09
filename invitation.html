@@ -230,17 +230,17 @@
         /* Coins ornementaux SVG */
         .invitation-card .corner-ornament {
             position: absolute;
-            width: 65px;
-            height: 65px;
+            width: 75px;
+            height: 75px;
             z-index: 4;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='2.5'%3E%3Cpath d='M3,97 L3,3 L97,3'/%3E%3Cpath d='M15,80 L15,15 L80,15'/%3E%3C/g%3E%3Cpolygon points='3,3 12,12 3,21' fill='%23d4af37'/%3E%3Ccircle cx='28' cy='28' r='2.5' fill='%23d4af37'/%3E%3Cpath d='M38,3 Q38,25 20,38' fill='none' stroke='%23d4af37' stroke-width='1.5' opacity='0.6'/%3E%3Cpath d='M3,38 Q25,38 38,20' fill='none' stroke='%23d4af37' stroke-width='1.5' opacity='0.6'/%3E%3C/svg%3E");
             background-size: contain;
             background-repeat: no-repeat;
         }
-        .invitation-card .corner-tl { top: 6px; left: 6px; }
-        .invitation-card .corner-tr { top: 6px; right: 6px; transform: scaleX(-1); }
-        .invitation-card .corner-bl { bottom: 6px; left: 6px; transform: scaleY(-1); }
-        .invitation-card .corner-br { bottom: 6px; right: 6px; transform: scale(-1,-1); }
+        .invitation-card .corner-tl { top: 8px; left: 8px; }
+        .invitation-card .corner-tr { top: 8px; right: 8px; transform: scaleX(-1); }
+        .invitation-card .corner-bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
+        .invitation-card .corner-br { bottom: 8px; right: 8px; transform: scale(-1,-1); }
         /* Ornement scroll SVG */
         .card-scroll-ornament {
             width: 70%;
@@ -314,7 +314,7 @@
         /* Card responsive padding */
         @media (min-width: 640px) {
             .invitation-card .card-inner {
-                padding: 25px 24px !important;
+                padding: 36px 32px 30px !important;
             }
         }
     </style>
@@ -494,62 +494,63 @@
                 <div class="card-shimmer"></div>
 
                 <!-- Contenu -->
-                <div class="card-inner" style="padding: 20px 16px; text-align: center; position: relative; z-index: 3;">
+                <div class="card-inner" style="padding: 30px 20px 24px; text-align: center; position: relative; z-index: 3;">
                     
                     <!-- Ornement scroll haut -->
-                    <div class="card-scroll-ornament" style="margin-bottom: 6px;"></div>
+                    <div class="card-scroll-ornament" style="margin-bottom: 14px;"></div>
 
                     <!-- Titre -->
-                    <p style="font-family: 'Lato', sans-serif; font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4af37; margin-bottom: 4px; font-weight: 600;">Invitation au Mariage</p>
+                    <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.45em; text-transform: uppercase; color: #d4af37; margin: 0 0 12px; font-weight: 600;">Invitation au Mariage</p>
                     
-                    <!-- Séparateur -->
-                    <div class="card-sep-ornament" style="margin-bottom: 6px;"></div>
-
                     <!-- Noms des mariés -->
-                    <p class="text-[34px] sm:text-[44px]" style="font-family: 'Great Vibes', cursive; color: #2d2d2d; margin-bottom: 0; line-height: 1.1; white-space: nowrap;">Falonne <span style="color: #d4af37;">&</span> Ander</p>
-                    
-                    <p style="font-family: 'Lato', sans-serif; font-size: 8px; color: #888; letter-spacing: 0.25em; margin-bottom: 6px;">ONT L'HONNEUR DE VOUS INVITER</p>
+                    <p class="text-[36px] sm:text-[46px]" style="font-family: 'Great Vibes', cursive; color: #2d2d2d; margin: 0; line-height: 1.15; white-space: nowrap;">Falonne <span style="color: #d4af37;">&amp;</span> Ander</p>
+                    <p style="font-family: 'Lato', sans-serif; font-size: 8px; color: #999; letter-spacing: 0.3em; margin: 4px 0 0;">ONT L'HONNEUR DE VOUS INVITER</p>
+
+                    <!-- Séparateur -->
+                    <div class="card-sep-ornament" style="margin: 14px auto;"></div>
 
                     <!-- Nom de l'invité -->
-                    <div style="margin: 0 10px 4px;">
-                        <p style="font-family: 'Lato', sans-serif; font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4af37; margin-bottom: 3px;">✦ &nbsp; Invitation pour &nbsp; ✦</p>
-                        <p id="cardGuestName" class="text-[24px] sm:text-[30px]" style="font-family: 'Great Vibes', cursive; color: #2d2d2d; margin-bottom: 0;"></p>
-                    </div>
+                    <p style="font-family: 'Lato', sans-serif; font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4af37; margin: 0 0 4px;">✦ Invitation pour ✦</p>
+                    <p id="cardGuestName" class="text-[26px] sm:text-[32px]" style="font-family: 'Great Vibes', cursive; color: #2d2d2d; margin: 0;"></p>
 
-                    <div class="card-sep-ornament" style="margin-bottom: 6px;"></div>
+                    <!-- Séparateur -->
+                    <div class="card-sep-ornament" style="margin: 14px auto;"></div>
 
                     <!-- Date -->
-                    <p style="font-family: 'Lato', sans-serif; font-size: 11px; letter-spacing: 0.15em; color: #6a6055; margin-bottom: 0;">Vendredi</p>
-                    <p class="text-[36px] sm:text-[44px]" style="font-family: 'Playfair Display', serif; font-weight: bold; color: #d4af37; margin: 0; line-height: 1.1; text-shadow: 2px 2px 0 rgba(212,175,55,0.1);">26</p>
-                    <p style="font-family: 'Playfair Display', serif; font-size: 16px; color: #2d2d2d; letter-spacing: 0.15em; margin-bottom: 6px;">Juin 2026</p>
+                    <p style="font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: #8a8070; margin: 0 0 2px; text-transform: uppercase;">Vendredi</p>
+                    <p class="text-[42px] sm:text-[50px]" style="font-family: 'Playfair Display', serif; font-weight: bold; color: #d4af37; margin: 0; line-height: 1;">26</p>
+                    <p style="font-family: 'Playfair Display', serif; font-size: 18px; color: #2d2d2d; letter-spacing: 0.12em; margin: 2px 0 0;">Juin 2026</p>
 
-                    <!-- Programme compact - 2 colonnes -->
-                    <div class="card-sep-ornament" style="margin-bottom: 6px;"></div>
-                    <div style="display: flex; justify-content: center; gap: 24px; margin-bottom: 6px;">
+                    <!-- Séparateur -->
+                    <div class="card-sep-ornament" style="margin: 14px auto;"></div>
+
+                    <!-- Programme - 2 colonnes bien espacées -->
+                    <div style="display: flex; justify-content: center; gap: 36px;">
                         <div style="text-align: center;">
-                            <p style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: bold; color: #d4af37; margin-bottom: 0;">09h30</p>
-                            <p style="font-family: 'Great Vibes', cursive; font-size: 18px; color: #2d2d2d; margin-bottom: 0;">Mariage Civil</p>
-                            <p style="font-family: 'Lato', sans-serif; font-size: 9px; color: #8a8070;">Mairie Centrale</p>
+                            <p style="font-family: 'Playfair Display', serif; font-size: 17px; font-weight: bold; color: #d4af37; margin: 0;">09h30</p>
+                            <p style="font-family: 'Great Vibes', cursive; font-size: 19px; color: #2d2d2d; margin: 2px 0 1px;">Mariage Civil</p>
+                            <p style="font-family: 'Lato', sans-serif; font-size: 9px; color: #8a8070; margin: 0; letter-spacing: 0.05em;">Mairie Centrale</p>
                         </div>
                         <div style="text-align: center;">
-                            <p style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: bold; color: #d4af37; margin-bottom: 0;">12h30</p>
-                            <p style="font-family: 'Great Vibes', cursive; font-size: 18px; color: #2d2d2d; margin-bottom: 0;">Bénédiction Nuptiale</p>
-                            <p style="font-family: 'Lato', sans-serif; font-size: 9px; color: #8a8070;">Exoming Beach</p>
+                            <p style="font-family: 'Playfair Display', serif; font-size: 17px; font-weight: bold; color: #d4af37; margin: 0;">12h30</p>
+                            <p style="font-family: 'Great Vibes', cursive; font-size: 19px; color: #2d2d2d; margin: 2px 0 1px;">Bénédiction Nuptiale</p>
+                            <p style="font-family: 'Lato', sans-serif; font-size: 9px; color: #8a8070; margin: 0; letter-spacing: 0.05em;">Exoming Beach</p>
                         </div>
                     </div>
 
-                    <div class="card-sep-ornament" style="margin-bottom: 6px;"></div>
+                    <!-- Séparateur -->
+                    <div class="card-sep-ornament" style="margin: 14px auto;"></div>
 
-                    <!-- Citation courte -->
-                    <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 11px; color: #666; line-height: 1.5; max-width: 300px; margin: 0 auto 6px;">
-                        "Votre présence est le plus beau cadeau que vous puissiez nous offrir."
+                    <!-- Citation -->
+                    <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 11px; color: #777; line-height: 1.6; max-width: 300px; margin: 0 auto;">
+                        "Votre présence est le plus beau cadeau<br>que vous puissiez nous offrir."
                     </p>
 
                     <!-- Ornement scroll bas -->
-                    <div class="card-scroll-ornament" style="margin-bottom: 4px;"></div>
+                    <div class="card-scroll-ornament" style="margin-top: 14px; margin-bottom: 6px;"></div>
 
                     <!-- Footer carte -->
-                    <p style="font-family: 'Lato', sans-serif; font-size: 8px; letter-spacing: 0.5em; text-transform: uppercase; color: rgba(212,175,55,0.6); margin: 0;">F & A • 2026</p>
+                    <p style="font-family: 'Lato', sans-serif; font-size: 8px; letter-spacing: 0.5em; text-transform: uppercase; color: rgba(212,175,55,0.5); margin: 0;">F &amp; A • 2026</p>
                 </div>
             </div>
 
